@@ -1,9 +1,16 @@
 import smtpd
 import asyncore
- 
-d=smtpd.DebuggingServer(('0.0.0.0', 25), None)
-  
+import signal
+
+def handler(signum, frame):
+  exit()
+
+signal.signal(signal.SIGTERM, handler)
+
+d = smtpd.DebuggingServer(('0.0.0.0', 25), None)
+
 try:
-    asyncore.loop()
+  print("SMTP debugging server started")
+  asyncore.loop()
 except KeyboardInterrupt:
-    pass
+  pass
