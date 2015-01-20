@@ -1,10 +1,10 @@
-FROM tutum/debian-wheezy
+FROM debian
 MAINTAINER Mark Redar mredar@gmail.com
 
-RUN apt-get update
-RUN apt-get upgrade -y
-
-RUN apt-get install -y -q python
+RUN \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -q python && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 25
 
